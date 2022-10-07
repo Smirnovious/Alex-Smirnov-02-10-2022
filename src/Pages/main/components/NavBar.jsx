@@ -5,8 +5,8 @@ const NavBar = () => {
     <div className='text-2xl flex justify-between'>
     <p>Abra Weather Task</p>
     <div>
-        <button className='border-2 rounded p-2 ml-2'>Home</button>
-        <button className='border-2 rounded p-2 ml-2'>Favorites</button>
+        <button className=' rounded p-2 ml-2'>Home</button>
+        <button className=' rounded p-2 ml-2'>Favorites</button>
     </div>
     </div>
   )

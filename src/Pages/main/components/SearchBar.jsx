@@ -9,17 +9,15 @@ const SearchBar = () => {
   }
 
   return (
-    <div className='flex justify-center mt-2'>
-        <input 
-        className='rounded-xl p-4 w-96 bg-gray-200' 
+    <div className='flex justify-between mt-2 w-96 bg-white rounded-xl p-2 mx-auto'>
+        <input  
+        className='focus:outline-none'
         type="text" 
         placeholder="Search for a city" 
         value={search}
         onChange={(e) => handleChange(e.target.value)}
         />
-        
-       
-        <BsSearch className='text-4xl'/>
+        <BsSearch className='text-4xl my-auto'/>
     </div>
   )
 }
