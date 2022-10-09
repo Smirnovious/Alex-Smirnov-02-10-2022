@@ -1,4 +1,5 @@
 import React from 'react'
+import ToggleDarkMode from '../../../utils/ToggleDarkMode'
 
 const NavBar = () => {
   return (
@@ -7,6 +8,7 @@ const NavBar = () => {
     <div>
         <button className='p-2 ml-2 dark:text-amber-200'>Home</button>
         <button className='p-2 ml-2 dark:text-amber-200'>Favorites</button>
+        <ToggleDarkMode/>
     </div>
     </div>
   )

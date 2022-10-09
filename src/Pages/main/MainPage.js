@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import ToggleDarkMode from '../../utils/ToggleDarkMode'
+
+
 
 import NavBar from './components/NavBar'
 import SearchBar from './components/SearchBar'
@@ -41,11 +42,12 @@ const MainPage = () => {
 
 
   return (
-    <div className='bg-gray-100 dark:bg-gray-800 h-screen'> 
+    <div className='bg-cyan-400 dark:bg-gray-800 h-screen'> 
     
     <NavBar/>
     <SearchBar/>
-    <ToggleDarkMode/>
+   
+  
     <WeatherPanel 
     weather={weather}
     />

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import {BiSun} from 'react-icons/bi'
+import {FaRegMoon} from 'react-icons/fa'
 
 const ToggleDarkMode = () => {
     const [darkMode, setDarkMode] = useState(()=> localStorage.theme === "dark")
@@ -6,7 +8,6 @@ const ToggleDarkMode = () => {
     const toggleDarkMode = () => {
         setDarkMode(!darkMode)
     }
-
         useEffect(() => {
     const html = window.document.documentElement
     const prevTheme = darkMode ? "light" : "dark"
@@ -19,19 +20,12 @@ const ToggleDarkMode = () => {
     }, [darkMode]);
     
     return (
-        <div className="dark-mode-toggle">
-            <input
-                type="checkbox"
-                id="dark-mode-toggle"
-                className="dark-mode-toggle__checkbox"
-                checked={darkMode}
-                onChange={toggleDarkMode}
-            />
-            <label htmlFor="dark-mode-toggle" className="dark-mode-toggle__label">
-                <span className="dark-mode-toggle__inner" />
-                <span className="dark-mode-toggle__switch" />
-            </label>
-        </div>
+        <button onClick={toggleDarkMode} className="flex items-center justify-center w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full">
+        {darkMode ? <BiSun className="text-yellow-500"/> : <FaRegMoon className="text-gray-500"/>}
+        </button>
+                      
+        
     )
+
 }
 export default ToggleDarkMode
