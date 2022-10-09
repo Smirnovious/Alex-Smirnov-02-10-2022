@@ -10,10 +10,14 @@ import WeatherPanel from './components/WeatherPanel'
 
 const MainPage = () => {
   const [weather, setWeather] = useState({})
+  const [fiveDayForecast, setFiveDayForecast] = useState([])
+
 
     useEffect(() => {
       getCity('Tel Aviv').then(data => {
-        getWeather(data.Key)
+        getWeather(data.Key).then(data => {
+          get5DayForecast(data.key)     
+        })
       })
     }, [])
 
@@ -22,6 +26,7 @@ const MainPage = () => {
       const data = await response.json()
       return data[0];
     };
+
     const getWeather = async (cityKey) => {
       const response = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=${process.env.REACT_APP_WEATHER_API_KEY}
       `)
@@ -36,6 +41,13 @@ const MainPage = () => {
         
       })
     };
+    const get5DayForecast = async (cityKey) => {
+      const response = await fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${process.env.REACT_APP_WEATHER_API_KEY}&metric=true`)
+      const data = await response.json()
+      setFiveDayForecast(data.DailyForecasts)
+    };
+    
+
 
 
 
@@ -44,14 +56,12 @@ const MainPage = () => {
   return (
     <div className='bg-cyan-400 dark:bg-gray-800 h-screen'> 
     
-    <NavBar/>
+   <NavBar/>
     <SearchBar/>
-   
-  
     <WeatherPanel 
     weather={weather}
     />
-    <Weather5DayForecast/>
+    <Weather5DayForecast forecast={fiveDayForecast}/>
     
     </div>
   )

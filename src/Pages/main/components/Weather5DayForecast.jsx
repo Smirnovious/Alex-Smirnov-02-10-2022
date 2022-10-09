@@ -1,21 +1,22 @@
 import React from 'react'
 
-const Weather5DayForecast = () => {
-    const x = [1,2,3,4,5]
-
-  return (
+const Weather5DayForecast = ({forecast}) => {
+    return (
     <div className="flex flex-row w-1/2 mx-auto">
-        {x.map((item) => (
-          <div className='mt-2 rounded-xl w-28 h-28 
+      {forecast.map((day, index) => {
+        return (
+          <div key={index} className='mt-2 rounded-xl w-28 h-28 
           mx-auto justify-around items-center dark:text-amber-200'>
-            <img src='' alt="" className='w-10 mx-auto'/>
-            <p className='text-lg mx-auto w-fit'>70°/103°</p>
-            <p className='text-xl mx-auto w-fit'>Sun</p>
-
+            <div className='text-white text-2xl w-fit mx-auto'>icon</div>
+            <p className='text-white text-xl w-fit mx-auto'>{Math.floor(day.Temperature.Minimum.Value)}°/{Math.floor(day.Temperature.Maximum.Value)}°</p>
+            <p className='text-white text-xl w-fit mx-auto'>Sun</p>
           </div>
-        ))}
+        )
+      })}
     </div>
+
   )
 }
+
 
 export default Weather5DayForecast

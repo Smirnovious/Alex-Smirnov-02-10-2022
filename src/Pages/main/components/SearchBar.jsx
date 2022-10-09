@@ -8,7 +8,7 @@ const SearchBar = () => {
   const handleChange = async (e) => {
     setSearchTerm(e.target.value)
     
-    const cities = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=QcpZQ2HRLYqJe0dobhTOQL7fAYwWWmKm&q=${searchTerm}`)
+    const cities = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${process.env.REACT_APP_WEATHER_API_KEY}&q=${searchTerm}`)
     const citiesJson = await cities.json()
     citiesJson.map((city) => {
       console.log(city.LocalizedName)
