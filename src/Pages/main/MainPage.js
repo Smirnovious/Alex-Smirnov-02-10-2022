@@ -1,44 +1,56 @@
 import React, { useEffect, useState } from 'react'
-import FahrenheitToCelsius from './components/FahrenheitToCelsius'
+import ToggleDarkMode from '../../utils/ToggleDarkMode'
+
 import NavBar from './components/NavBar'
 import SearchBar from './components/SearchBar'
 import Weather5DayForecast from './components/Weather5DayForecast'
 import WeatherPanel from './components/WeatherPanel'
-const API = 'QcpZQ2HRLYqJe0dobhTOQL7fAYwWWmKm'
+
 
 const MainPage = () => {
-const [darkMode, setDarkMode] = useState(false) 
+  const [weather, setWeather] = useState({})
 
-  // useEffect(() => {
-  //   const getWeather = async () => {
-  //     const response = await fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/215854?apikey=${API}&metric=true`)
-  //     const data = await response.json()
-  //     console.log(data)
-  //   }
-  //   getWeather()
-  // }, [])
+    useEffect(() => {
+      getCity('Tel Aviv').then(data => {
+        getWeather(data.Key)
+      })
+    }, [])
 
-  //   const getCity = async () => {
-  //     const response = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${API}&q=Tel%20Aviv`)
-  //     const data = await response.json()
-  //     console.log(data)
-  //   }
-  //   getCity()
+      const getCity = async (city) => {
+      const response = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${process.env.REACT_APP_WEATHER_API_KEY}&q=${city}`)
+      const data = await response.json()
+      return data[0];
+    };
+    const getWeather = async (cityKey) => {
+      const response = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=${process.env.REACT_APP_WEATHER_API_KEY}
+      `)
+      const data = await response.json()
+      console.log(data)
+      setWeather({
+        city: 'Tel-Aviv',
+        temperature: data[0].Temperature.Metric.Value,
+        weatherText: data[0].WeatherText,
+        weatherIcon: data[0].WeatherIcon,
+        isDayTime: data[0].IsDayTime
+        
+      })
+    };
 
-    
+
+
 
 
   return (
-    <div className='bg-gradient-to-bl from-blue-100 via-blue-300 to-blue-500'>
+    <div className='bg-gray-100 dark:bg-gray-800 h-screen'> 
+    
     <NavBar/>
-     <label class="toggleDarkBtn">
-        <input type="checkbox" onClick={() => setDarkMode(!darkMode)} />
-        <span class="slideBtnTg round"></span>
-      </label>
     <SearchBar/>
-    <WeatherPanel/>
+    <ToggleDarkMode/>
+    <WeatherPanel 
+    weather={weather}
+    />
     <Weather5DayForecast/>
-    <FahrenheitToCelsius/>
+    
     </div>
   )
 }
