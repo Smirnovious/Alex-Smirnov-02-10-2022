@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 
+
+
 import Loading from './Loading'
 
-const WeatherPanel = () => {
+const WeatherPanel = () => {  
   if (1===1) {
   return <Loading/>
   } else {
   return (
     <div className="flex flex-col w-1/2 mx-auto">
-  
+      
     </div>
     
     
