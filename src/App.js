@@ -1,9 +1,8 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Routes, Route} from 'react-router-dom'
 import FavoritesPage from './Pages/favorites/FavoritesPage'
-
 import MainPage from './Pages/main/MainPage'
-import NotFoundPage from './utils/NotFoundPage'
+import NotFoundPage from './Pages/NotFoundPage'
 
 const App = () => {
   return (

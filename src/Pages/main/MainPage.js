@@ -3,22 +3,17 @@ import NavBar from './components/NavBar'
 import SearchBar from './components/SearchBar'
 import Weather5DayForecast from './components/Weather5DayForecast'
 import WeatherPanel from './components/WeatherPanel'
-import { useSelector, useDispatch } from 'react-redux'
-import { getCity, getWeather, get5DayForecast } from '../../redux/slices/forecastSlice'
+import { useDispatch } from 'react-redux'
+import { getWeather, get5DayForecast } from '../../redux/slices/forecastSlice'
 
 const MainPage = () => {
+
   const dispatch = useDispatch()
-  const city = useSelector(state => state.forecast.city)
-  const weather = useSelector(state => state.forecast.weather)
-  const fiveDayForecast = useSelector(state => state.forecast.fiveDayForecast)
-  
-  
-  useEffect(() => {
-    dispatch(getCity())
-    dispatch(getWeather(city))
-    dispatch(get5DayForecast(city))
-  }, [city, dispatch])
-   
+    useEffect(() => {
+    dispatch(getWeather('215854'))
+    dispatch(get5DayForecast('215854'))
+    }, []) 
+
 
 
   return (
