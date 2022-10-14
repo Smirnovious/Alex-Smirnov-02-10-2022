@@ -6,7 +6,7 @@ import {weatherIcons} from '../../../assets/weatherIcons.js'
 import {BsHeart} from 'react-icons/bs'
 import { BsHeartFill } from 'react-icons/bs'
 import { addFavorite } from '../../../redux/slices/favoritesSlice'
-import { fetchCurrentWeather, fetchDailyForecast } from '../../../redux/slices/forecastSlice'
+import { fetchCurrentWeather, setCity } from '../../../redux/slices/forecastSlice'
 
 
 const WeatherPanel = () => {  
@@ -14,14 +14,13 @@ const WeatherPanel = () => {
 
     useEffect(() => {
       dispatch(fetchCurrentWeather('215854'))
-      dispatch(fetchDailyForecast('215854'))
+      
     }, [])
+    const currentWeather = useSelector(state => state.forecast.currentWeather)
+    const city = useSelector(state => state.forecast.city)
 
-  const {city} = useSelector((state) => state.forecast)
-  const {weather} = useSelector((state) => state.forecast)
 
-
-  if (!weather) {
+  if (!currentWeather) {
     return <Loading />
   } else {
   return (
@@ -32,8 +31,8 @@ const WeatherPanel = () => {
       <p className='mx-auto text-5xl mt-4 font-bold dark:text-amber-200'>{city}</p>
         <div className="flex flex-row justify-between mt-4">
           <WiCloudyWindy className='text-9xl mt-4 dark:text-amber-200'/>
-          <p className='text-3xl my-auto font-bold  dark:text-amber-200'>{weather[0]?.Day.IconPhrase}</p>
-          <p className='text-8xl my-auto font-bold dark:text-amber-200'>{(weather[0]?.Temperature.Minimum.Value + weather[0]?.Temperature.Maximum.Value) / 2}°</p>
+          <p className='text-3xl my-auto font-bold  dark:text-amber-200'>{currentWeather.WeatherText}</p>
+          <p className='text-8xl my-auto font-bold dark:text-amber-200'>{Math.floor(currentWeather.Temperature.Metric.Value)}°</p>
         </div>  
   </div>
   )

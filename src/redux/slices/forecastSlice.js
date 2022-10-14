@@ -18,7 +18,7 @@ import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
         'forecast/fetchDailyForecast',
         async (cityKey) => {
             try {
-                const response = await fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${process.env.REACT_APP_WEATHER_API_KEY}`)
+                const response = await fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${process.env.REACT_APP_WEATHER_API_KEY}&metric=true`)
                 const dailyForecast = await response.json()
                 console.log(dailyForecast.DailyForecasts)
                 return dailyForecast.DailyForecasts
@@ -27,15 +27,21 @@ import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
             }
         }
     )
+
 const forecastSlice = createSlice({
     name: 'forecast',
     initialState: {
+        city: 'Tel Aviv',
         currentWeather: null,
         dailyForecast: [],
+        isMetric: true,
     },
     reducers: {
         setCity: (state, action) => {
             state.city = action.payload
+        },
+        setIsMetric: (state, action) => {
+            state.isMetric = action.payload
         }
     },
     extraReducers: {
