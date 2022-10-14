@@ -8,7 +8,7 @@ import WeatherPanel from './components/WeatherPanel'
 
 const MainPage = () => {
   return (
-    <div className='bg-cyan-400 dark:bg-gray-800 h-screen'> 
+    <div className='bg-gray-50 h-screen dark:bg-gray-800 '> 
     <NavBar/>
     <SearchBarNew/>
     <WeatherPanel/>

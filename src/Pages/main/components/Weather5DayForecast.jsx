@@ -13,15 +13,15 @@ const Weather5DayForecast = () => {
 
 
     return (
-    <div className="flex flex-row w-1/2 mx-auto">
+    <div className="flex flex-row w-full mx-auto">
       { dailyForecast.map((day, index) => {
         return (
-          <div key={index} className='mt-2 rounded-xl w-32 h-28 
+          <div key={index} className='mt-16 rounded-xl w-1/6 h-32 shadow-2xl 
           mx-auto justify-around items-center border'>
-          <p className='text-black text-xl w-fit mx-auto dark:text-amber-200'>Sun</p>
+          <p className='text-black text-xl w-fit mx-auto dark:text-amber-200'>{moment(day.Date).format('ddd')}</p>
             <div className='text-black text-2xl w-fit mx-auto dark:text-amber-200'>icon</div>
-            <p className='text-black text-xl w-fit mx-auto dark:text-amber-200'>{day.Temperature.Minimum.Value} - {day.Temperature.Maximum.Value}</p>
-            <p className='text-black text-sm w-fit mx-auto dark:text-amber-200'>{day.Day.IconPhrase}</p>
+            <p className='text-black text-xl w-fit mx-auto dark:text-amber-200'>{Math.floor(day.Temperature.Minimum.Value)}° - {Math.floor(day.Temperature.Maximum.Value)}°</p>
+            <p className='text-black text-lg w-fit mx-auto font-bold dark:text-amber-200'>{day.Day.IconPhrase}</p>
           </div>
         )
       })}

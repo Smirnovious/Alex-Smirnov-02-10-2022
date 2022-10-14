@@ -13,7 +13,7 @@ export const autoCompleteSlice = createSlice({
         },
         getSuggestionRes: (state, action) => {
             state.isFetching = state.isFetching - 1;
-            console.log(action.payload);
+           
             state.locations = action.payload;
         },
         resetSuggestions: (state, action) => {
@@ -22,7 +22,7 @@ export const autoCompleteSlice = createSlice({
         },
         setText: (state, action) => {
             state.text = action.payload;
-            console.log(state.text);
+
         },
     }
 });

@@ -20,8 +20,8 @@ const ToggleDarkMode = () => {
     }, [darkMode]);
     
     return (
-        <button onClick={toggleDarkMode} className="flex items-center justify-center w-8 h-8 bg-black dark:bg-gray-700 rounded-full my-auto mr-4">
-        {darkMode ? <BiSun className="text-yellow-500"/> : <FaRegMoon className="text-white"/>}
+        <button onClick={toggleDarkMode} className="flex items-center justify-center w-8 h-8 mr-2 ">
+        {darkMode ? <BiSun className="text-yellow-500"/> : <FaRegMoon className="text-black"/>}
         </button>
                       
         

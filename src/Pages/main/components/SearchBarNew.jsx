@@ -7,6 +7,7 @@ import {ImCross} from 'react-icons/im'
 const SearchBarNew = () => {
     const suggestions = useSelector(state => state.autoComplete.locations)
     const dispatch = useDispatch()
+    const text = useSelector(state => state.autoComplete.text)
 
     const handleChange = async e => {
         const value = e.target.value
@@ -24,7 +25,6 @@ const SearchBarNew = () => {
     const handleKeyPress = async e => {
         if (e.charCode === 13 || e.key === 'Enter') {
             e.preventDefault()
-            console.log('enter pressed')
             await handleSubmit()
         }
     }
@@ -58,21 +58,24 @@ const SearchBarNew = () => {
 
 
 
-    // const suggestionSelected = async locationRawData => {
-    //     dispatch(resetSuggestions())
-    //     dispatch(setText(locationRawData.LocalizedName))
-    // }
+
 
     const renderSuggestions = () => {
-        if (suggestions.length === 0) {
-            return null
+        if (text && suggestions.length === 0) {
+            return (
+              <ul className='absolute top-12 rounded-xl bg-white z-10 w-1/2 overflow-y-auto dark:bg-gray-400'>
+                <li className='p-2'>No Cities Found</li>
+                        </ul>
+                )
         }
         return (
          <ul className='absolute top-12 rounded-xl bg-white z-10 w-1/2 overflow-y-auto'>
                 {suggestions.map((suggestion, index) => (
-                    <li key={index} className="hover:bg-amber-500 hover:cursor-pointer flex p-2 justify-between items-center border-b-2 ">
-                        <span>{suggestion.LocalizedName}</span> 
-                        <span className='font-light text-slate-500 text-sm'>{suggestion.Country.LocalizedName}</span>
+                    <li key={index} className="hover:bg-amber-500 hover:cursor-pointer flex p-2 justify-between 
+                    items-center border-b-2 dark:bg-gray-600 dark:border-b-amber-100"
+                    >
+                        <span className='dark:text-amber-200'>{suggestion.LocalizedName}</span> 
+                        <span className='font-light text-slate-500 text-sm dark:text-amber-200'>{suggestion.Country.LocalizedName}</span>
                     </li>
                 ))}
             </ul>
@@ -84,7 +87,8 @@ const SearchBarNew = () => {
     return (
         <div className="w-full relative flex flex-row justify-center">
             <input
-                className="border-none leading-10 rounded-xl mx-auto w-1/2 capitalize transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                className="border-none leading-10 rounded-xl mx-auto w-1/2 capitalize transition-all dark:placeholder-amber-200
+                duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-500"
                 type="text"
                 placeholder="Type a city name"
                 onChange={handleChange}
