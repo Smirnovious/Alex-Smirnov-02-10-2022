@@ -1,6 +1,8 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const CityCard = () => {
+  const { favoriteCity } = useSelector((state) => state.favorites)
   return (
     <>
     <p className='content-center text-4xl mt-4 font-bold dark:text-amber-200'>Favorite Cities</p>

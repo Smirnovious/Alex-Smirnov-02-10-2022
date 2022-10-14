@@ -1,56 +1,37 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 
-    // export const getCity = createAsyncThunk(
-    // 'forecast/getCity',
-    // async (city) => {
-    //     const response = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${process.env.REACT_APP_WEATHER_API_KEY}&q=${city}`)
-    //     const data = await response.json()
-    //     const responseWeather = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${data[0].Key}?apikey=${process.env.REACT_APP_WEATHER_API_KEY}`)
-    //     const dataWeather = await response.json()
-    //     console.log(dataWeather[0])
-    //     console.log(responseWeather)
-    //     return dataWeather
-        
-    // },
-    // )
-
-    export const getWeather = createAsyncThunk(
-        'forecast/getWeather',
-        async (cityKey) => {   
+    
+    export const fetchCurrentWeather = createAsyncThunk(
+        'forecast/fetchCurrentWeather',
+        async (cityKey) => {
             try {
-                const response = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=${process
-                .env.REACT_APP_WEATHER_API_KEY}`)
-                const data = await response.json()
-                console.log(data)
-                return data
+                const response = await fetch(`https://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=${process.env.REACT_APP_WEATHER_API_KEY}`)
+                const currentWeather = await response.json()
+                console.log(currentWeather[0])
+                return currentWeather[0]
             } catch (error) {
                 console.log(error)
             }
         }
     )
-
-    export const get5DayForecast = createAsyncThunk(
-        'forecast/get5DayForecast',
+    export const fetchDailyForecast = createAsyncThunk(
+        'forecast/fetchDailyForecast',
         async (cityKey) => {
             try {
-            const response = await fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${process.env.REACT_APP_WEATHER_API_KEY}&metric=true`)
-            const data = await response.json()
-            console.log(data.DailyForecasts)
-            return data.DailyForecasts
+                const response = await fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${process.env.REACT_APP_WEATHER_API_KEY}`)
+                const dailyForecast = await response.json()
+                console.log(dailyForecast.DailyForecasts)
+                return dailyForecast.DailyForecasts
             } catch (error) {
                 console.log(error)
-            } 
+            }
         }
     )
-        
 const forecastSlice = createSlice({
     name: 'forecast',
     initialState: {
-        city: 'Tel Aviv',
-        weather: {},
-        fiveDayForecast: [],
-        status: null,
-        weatherIcon: null,
+        currentWeather: null,
+        dailyForecast: [],
     },
     reducers: {
         setCity: (state, action) => {
@@ -58,26 +39,25 @@ const forecastSlice = createSlice({
         }
     },
     extraReducers: {
-        [getWeather.pending]: (state) => {
+        [fetchCurrentWeather.pending]: (state) => {
             state.status = 'loading'
         },
-        [getWeather.fulfilled]: (state, action) => {
+        [fetchCurrentWeather.fulfilled]: (state, action) => {
             state.status = 'success'
-            state.weather = action.payload
+            state.currentWeather = action.payload
         },
-        [getWeather.rejected]: (state) => {
+        [fetchCurrentWeather.rejected]: (state) => {
             state.status = 'failed'
         },
-        [get5DayForecast.pending]: (state) => {
+        [fetchDailyForecast.pending]: (state) => {
             state.status = 'loading'
         },
-        [get5DayForecast.fulfilled]: (state, action) => {
+        [fetchDailyForecast.fulfilled]: (state, action) => {
             state.status = 'success'
-            state.fiveDayForecast = action.payload
-        },
-        [get5DayForecast.rejected]: (state) => {
-            state.status = 'failed'
-        }  
+            state.dailyForecast = action.payload
+        }
+
+
     },
     }
 )

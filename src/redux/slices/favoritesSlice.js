@@ -1,30 +1,18 @@
-import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import axios from 'axios'
+import { createSlice} from '@reduxjs/toolkit'
+import { loadFavorites } from '../../utils/loadFavorites'
 
-
-export const Forecast = createAsyncThunk(
-
-const initialState = {
-  forecast: {},
-}
-
-
-
-export const forecastSlice = createSlice({
-  name: 'forecastSlice',
-  initialState,
+const favoritesSlice = createSlice({
+  name: 'favorites',
+  initialState: loadFavorites(),
   reducers: {
-    getForecast: (state, action) => {
-      state.forecast = action.payload
+    addFavorite: (state, action) => {
+      state.push(action.payload)
     },
-    getFiveDayForecast: (state, action) => {
-      state.forecast = action.payload
+    removeFavorite: (state, action) => {
+      return state.filter((city) => city.cityKey !== action.payload)
     },
   },
 })
 
-
-
-export const { getForecast, getFiveDayForecast } = forecastSlice.actions
-
-export default forecastSlice.reducer 
+export default favoritesSlice.reducer
+export const { addFavorite, removeFavorite } = favoritesSlice.actions

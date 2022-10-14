@@ -2,7 +2,7 @@ import React from 'react'
 import {BsSearch} from 'react-icons/bs'
 import Turnstone from 'turnstone'
 import { useSelector, useDispatch } from "react-redux";
-import {getCity, getWeather, get5DayForecast, setCity} from "../../../redux/slices/forecastSlice";
+import { fetchCurrentWeather } from '../../../redux/slices/forecastSlice';
 
 
 const searchBarStyles = {
@@ -14,7 +14,12 @@ listbox: 'cursor-pointer w-full bg-white sm:border sm:border-crystal-500 sm:roun
 
 const SearchBar = () => {
 const dispatch = useDispatch();
-  const listbox = [
+const defaultCity = {
+name: 'Tel Aviv',
+key: '215854',
+}
+const {city} = useSelector((state) => state.forecast);
+const listbox = [
   {
     ratio: 8,
     displayField: 'name',
@@ -26,35 +31,32 @@ const dispatch = useDispatch();
           id: index,
           name: city.LocalizedName,
           key: city.Key,
-        } 
+        }
       })
     },
-  },
+    },
 ]
 
 
 
   return (
     <div className='w-1/2 mx-auto'>
-    <Turnstone
-        autoFocus={true}
-        clearButton={true}
-        debounceWait={250}
-        id="autocomplete"
-        listbox={listbox}
-        listboxIsImmutable={true}
-        matchText={true}
-        noItemsMessage="We found no cities that match your search"
-        placeholder="Search for a city"
-        styles={searchBarStyles}
-        onSelect={(item) => {
-          dispatch(setCity(item && item.name))
-          dispatch(getWeather(item && item.key))
-          dispatch(get5DayForecast(item && item.key))
-        }}
-      />
-
-      </div>
+      <Turnstone
+          clearButton={true}
+          debounceWait={250}
+          id="autocomplete"
+          listbox={listbox}
+          listboxIsImmutable={true}
+          matchText={true}
+          noItemsMessage="We found no cities that match your search"
+          placeholder="Search for a city"
+          styles={searchBarStyles}
+          onSelect={(selection = defaultCity) => {
+            console.log(selection)
+          }}
+        />
+            
+    </div>
     
     
   )
@@ -62,3 +64,4 @@ const dispatch = useDispatch();
 
 export default SearchBar
 
+ 
