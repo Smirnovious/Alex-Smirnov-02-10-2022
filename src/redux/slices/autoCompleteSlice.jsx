@@ -13,12 +13,11 @@ export const autoCompleteSlice = createSlice({
         },
         getSuggestionRes: (state, action) => {
             state.isFetching = state.isFetching - 1;
-           
             state.locations = action.payload;
         },
         resetSuggestions: (state, action) => {
+            state.text = action.payload;
             state.locations = [];
-            state.text = "";
         },
         setText: (state, action) => {
             state.text = action.payload;

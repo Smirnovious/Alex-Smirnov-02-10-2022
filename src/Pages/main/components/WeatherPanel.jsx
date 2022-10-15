@@ -9,11 +9,9 @@ import { addFavorite, removeFavorite } from '../../../redux/slices/favoritesSlic
 
 const WeatherPanel = () => {  
    const dispatch = useDispatch()
-
     useEffect(() => {
       dispatch(fetchCurrentWeather('215854'))
     }, [])
-
     const currentWeather = useSelector(state => state.forecast.currentWeather)
     const city = useSelector(state => state.forecast.city)
 
@@ -22,9 +20,9 @@ const WeatherPanel = () => {
     return <Loading />
   } else {
   return (
-  <div className="flex flex-col w-1/2 mx-auto  rounded-2xl mt-2">
+  <div className="flex flex-col w-1/2 mx-auto rounded-2xl mt-2">
     <div className="flex flex-row">
-        <button onClick={dispatch(addFavorite())}><BsHeart className='text-2xl mt-4 mx-4 dark:text-amber-200 self-end'/></button>
+        <button><BsHeart className='text-2xl mt-4 mx-4 dark:text-amber-200 self-end'/></button>
       </div>
       <p className='mx-auto text-5xl mt-4 font-bold dark:text-amber-200'>{city}</p>
         <div className="flex flex-row justify-between mt-4">
@@ -34,8 +32,9 @@ const WeatherPanel = () => {
         </div>  
   </div>
   )
+  }
 }
-}
-// {Math.floor(weather?.Temperature.Metric.Value)}
+
+
 export default WeatherPanel
 

@@ -2,38 +2,39 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {  getSuggestionReq, getSuggestionRes, resetSuggestions, setText } from '../../../redux/slices/autoCompleteSlice'
 import {ImCross} from 'react-icons/im'
+import { setCity, fetchDailyForecast, fetchCurrentWeather } from '../../../redux/slices/forecastSlice'
 
 
 const SearchBarNew = () => {
-    const suggestions = useSelector(state => state.autoComplete.locations)
     const dispatch = useDispatch()
+    const citiesArray = useSelector(state => state.autoComplete.locations)
     const text = useSelector(state => state.autoComplete.text)
 
     const handleChange = async e => {
         const value = e.target.value
         dispatch(setText(value))
-        if (value.length > 0) {
+        if (value.length > 2) {
             dispatch(getSuggestionReq())
             const data = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${process.env.REACT_APP_WEATHER_API_KEY}&q=${value}`)
-            const suggestions = await data.json()
-            dispatch(getSuggestionRes(suggestions))
+            const suggestedCities = await data.json()
+            dispatch(getSuggestionRes(suggestedCities))
         } else {
             dispatch(resetSuggestions())
         }
     }
 
-    const handleKeyPress = async e => {
-        if (e.charCode === 13 || e.key === 'Enter') {
-            e.preventDefault()
-            await handleSubmit()
-        }
-    }
+    // const handleKeyPress = async e => {
+    //     if (e.charCode === 13 || e.key === 'Enter') {
+    //         e.preventDefault()
+    //         await handleSubmit()
+    //     }
+    // }
 
-    const handleSubmit = async e => {
-            const data = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${process.env.REACT_APP_WEATHER_API_KEY}&q=${suggestions.text}`)
-            const suggestions = await data.json()
-            dispatch(getSuggestionRes(suggestions))
-    }
+    // const handleSubmit = async e => {
+    //         const data = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${process.env.REACT_APP_WEATHER_API_KEY}&q=${suggestions.text}`)
+    //         const suggestions = await data.json()
+    //         dispatch(getSuggestionRes(suggestions))
+    // }
     
     //     const labelButton = () => {
     //     if (suggestions.locations.length > 0 && suggestions.text.length > 0) {
@@ -55,13 +56,17 @@ const SearchBarNew = () => {
     //     )
     // }
     
-
-
-
-
+ 
+    const handleCityClick = async (city) => {
+        dispatch(setCity(city.LocalizedName))
+        dispatch(resetSuggestions(''))
+        dispatch(fetchCurrentWeather(city.Key))
+        dispatch(fetchDailyForecast(city.Key))
+        }
+    
 
     const renderSuggestions = () => {
-        if (text && suggestions.length === 0) {
+        if (text && citiesArray.length === 0) {
             return (
               <ul className='absolute top-12 rounded-xl bg-white z-10 w-1/2 overflow-y-auto dark:bg-gray-400'>
                 <li className='p-2'>No Cities Found</li>
@@ -70,10 +75,10 @@ const SearchBarNew = () => {
         }
         return (
          <ul className='absolute top-12 rounded-xl bg-white z-10 w-1/2 overflow-y-auto'>
-                {suggestions.map((suggestion, index) => (
+                {citiesArray.map((suggestion, index) => (
                     <li key={index} className="hover:bg-amber-500 hover:cursor-pointer flex p-2 justify-between 
-                    items-center border-b-2 dark:bg-gray-600 dark:border-b-amber-100"
-                    >
+                    items-center border-b-2 dark:bg-gray-600 dark:border-b-amber-100 dark:hover:bg-white"
+                    onClick={async () => await handleCityClick(suggestion)}>
                         <span className='dark:text-amber-200'>{suggestion.LocalizedName}</span> 
                         <span className='font-light text-slate-500 text-sm dark:text-amber-200'>{suggestion.Country.LocalizedName}</span>
                     </li>
@@ -92,10 +97,9 @@ const SearchBarNew = () => {
                 type="text"
                 placeholder="Type a city name"
                 onChange={handleChange}
-                value={suggestions.text}
-                onKeyPress={handleKeyPress}
+                value={text}
+                // onKeyPress={handleKeyPress}
             />
-            
             {renderSuggestions()}
         </div>
     )
