@@ -1,21 +1,11 @@
-export const loadFavorites = () => {
+export const loadState = () => {
     try {
-        const favoritesCities = localStorage.getItem('favorites')
-        if (favoritesCities === null) {
+        const serializedState = localStorage.getItem('favorites')
+        if (serializedState === null) {
             return []
-        } else {
-        return JSON.parse(favoritesCities)
         }
+        return JSON.parse(serializedState)
     } catch (err) {
         return undefined
-    }
-}
-
-export const saveState = (state) => {
-    try {
-        const favoritesCities = JSON.stringify(state)
-        localStorage.setItem('favorites', favoritesCities)
-    } catch (err) {
-        console.log(err)
     }
 }

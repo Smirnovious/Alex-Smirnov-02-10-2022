@@ -1,15 +1,19 @@
 import { createSlice} from '@reduxjs/toolkit'
-import { loadFavorites } from '../../utils/loadFavorites'
+import { loadState } from '../../utils/loadFavorites'
 
 const favoritesSlice = createSlice({
   name: 'favorites',
-  initialState: loadFavorites(),
+  initialState: {
+    favoriteCities: loadState(),
+  },
   reducers: {
     addFavorite: (state, action) => {
-      state.push(action.payload)
+      state.favoriteCities.push(action.payload)
+      localStorage.setItem('favorites', JSON.stringify(state.favoriteCities))
     },
     removeFavorite: (state, action) => {
-      return state.filter((city) => city.cityKey !== action.payload)
+      state.favoriteCities = state.favoriteCities.filter(city => city.id !== action.payload.id)
+      localStorage.setItem('favorites', JSON.stringify(state.favoriteCities))
     },
   },
 })

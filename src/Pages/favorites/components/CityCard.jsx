@@ -1,22 +1,28 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch} from 'react-redux'
+import { fetchCurrentWeather } from '../../../redux/slices/forecastSlice'
 
 const CityCard = () => {
-  const { favoriteCity } = useSelector((state) => state.favorites)
+    const {favoriteCities} = useSelector(state => state.favorites)
+    const dispatch = useDispatch()
+    const currentWeather = useSelector(state => state.currentWeather)
+
   return (
-    <>
-    <p className='content-center text-4xl mt-4 font-bold dark:text-amber-200'>Favorite Cities</p>
-    <div className='flex flex-col w-1/5 mx-auto border-2 rounded-xl'>
-    <div className='mt-2 rounded-xl w-full h-52 mx-auto flex flex-row justify-between items-center'>
-        <img src='' alt="" className='text-9xl mx-4 dark:text-amber-200'/>
-        <p className='dark:text-amber-200'>City Name</p>
-            <p className='text-5xl dark:text-amber-200'>
-                70°
-            </p>
+    <div className='flex flex-row items-center justify-center'>
+    {favoriteCities.map((favorite, index) => (
+        <div key={index} className='border rounded-xl p-4 m-4 dark:bg-amber-200'>
+        <p>{favorite.name}</p>
+        <p>ww</p>
+        </div>
+        
+      
+    ))}
     </div>
-    </div>
-    </>
+   
   )
 }
+
+      
+
 
 export default CityCard

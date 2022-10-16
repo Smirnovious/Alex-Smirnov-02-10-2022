@@ -1,67 +1,78 @@
 import React from 'react'
-import {BsSearch} from 'react-icons/bs'
-import Turnstone from 'turnstone'
-import { useSelector, useDispatch } from "react-redux";
-import { fetchCurrentWeather } from '../../../redux/slices/forecastSlice';
-
-
-const searchBarStyles = {
-input: 'w-full h-12 border rounded-xl border-slate-300 py-2 pl-10 dark:text-amber-200 dark:bg-slate-800 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent',
-clearButton: 'absolute right-4 top-3 text-amber-400 hover:text-amber-500',
-listbox: 'cursor-pointer w-full bg-white sm:border sm:border-crystal-500 sm:rounded text-left sm:mt-2 p-2 sm:drop-shadow-xl dark:text-amber-200 dark:bg-slate-800 dark:border-slate-700',
-}
+import { useSelector, useDispatch } from 'react-redux'
+import {  getSuggestionReq, getSuggestionRes, resetSuggestions, setText } from '../../../redux/slices/autoCompleteSlice'
+import {ImCross} from 'react-icons/im'
+import { setCity, fetchDailyForecast, fetchCurrentWeather, setLocation } from '../../../redux/slices/forecastSlice'
 
 
 const SearchBar = () => {
-const dispatch = useDispatch();
-const defaultCity = {
-name: 'Tel Aviv',
-key: '215854',
-}
-const {city} = useSelector((state) => state.forecast);
-const listbox = [
-  {
-    ratio: 8,
-    displayField: 'name',
-    data: async (query) => {
-      const data = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${process.env.REACT_APP_WEATHER_API_KEY}&q=${query}`)
-      const dataJson = await data.json();     
-      return dataJson.map((city, index) => {
-        return {
-          id: index,
-          name: city.LocalizedName,
-          key: city.Key,
+    const dispatch = useDispatch()
+    const citiesArray = useSelector(state => state.autoComplete.locations)
+    const text = useSelector(state => state.autoComplete.text)
+    
+
+    const handleChange = async e => {
+        const value = e.target.value
+        dispatch(setText(value))
+        if (value.length > 2) {
+            dispatch(getSuggestionReq())
+            const data = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${process.env.REACT_APP_WEATHER_API_KEY}&q=${value}`)
+            const suggestedCities = await data.json()
+            dispatch(getSuggestionRes(suggestedCities))
+        } else {
+            dispatch(resetSuggestions())
         }
-      })
-    },
-    },
-]
+    }
 
 
-
-  return (
-    <div className='w-1/2 mx-auto'>
-      <Turnstone
-          clearButton={true}
-          debounceWait={250}
-          id="autocomplete"
-          listbox={listbox}
-          listboxIsImmutable={true}
-          matchText={true}
-          noItemsMessage="We found no cities that match your search"
-          placeholder="Search for a city"
-          styles={searchBarStyles}
-          onSelect={(selection = defaultCity) => {
-            console.log(selection)
-          }}
-        />
-            
-    </div>
+ 
+    const handleCityClick = async (city) => {
+        dispatch(setCity(city.LocalizedName))
+        dispatch(resetSuggestions(''))
+        dispatch(fetchCurrentWeather(city.Key))
+        dispatch(fetchDailyForecast(city.Key))
+        dispatch(setLocation({id: city.Key, name: city.LocalizedName}))
+        }
     
-    
-  )
+
+    const renderSuggestions = () => {
+        if (text && citiesArray.length === 0) {
+            return (
+              <ul className='absolute top-12 rounded-xl bg-white z-10 w-1/2 overflow-y-auto dark:bg-gray-400'>
+                <li className='p-2'>No Cities Found</li>
+                        </ul>
+                )
+        }
+        return (
+         <ul className='absolute top-12 rounded-xl bg-white z-10 w-1/2 overflow-y-auto'>
+                {citiesArray.map((suggestion, index) => (
+                    <li key={index} className="hover:bg-amber-500 hover:cursor-pointer flex p-2 justify-between 
+                    items-center border-b-2 dark:bg-gray-600 dark:border-b-amber-100 dark:hover:bg-white"
+                    onClick={async () => await handleCityClick(suggestion)}>
+                        <span className='dark:text-amber-200'>{suggestion.LocalizedName}</span> 
+                        <span className='font-light text-slate-500 text-sm dark:text-amber-200'>{suggestion.Country.LocalizedName}</span>
+                    </li>
+                ))}
+            </ul>
+           
+           
+        )
+    }
+
+    return (
+        <div className="w-full relative flex flex-row justify-center">
+            <input
+                className="border-none leading-10 rounded-xl mx-auto w-1/2 capitalize transition-all dark:placeholder-amber-200
+                duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-500"
+                type="text"
+                placeholder="Type a city name"
+                onChange={handleChange}
+                value={text}
+                // onKeyPress={handleKeyPress}
+            />
+            {renderSuggestions()}
+        </div>
+    )
 }
 
 export default SearchBar
-
- 

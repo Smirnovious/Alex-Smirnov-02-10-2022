@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 
-    
+
     export const fetchCurrentWeather = createAsyncThunk(
         'forecast/fetchCurrentWeather',
         async (cityKey) => {
@@ -29,17 +29,22 @@ import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 const forecastSlice = createSlice({
     name: 'forecast',
     initialState: {
-        city: 'Tel Aviv',
+        city:'Tel Aviv',
         currentWeather: null,
         dailyForecast: [],
         isMetric: true,
+        location: {}
     },
     reducers: {
         setCity: (state, action) => {
             state.city = action.payload
         },
-        setIsMetric: (state, action) => {
-            state.isMetric = action.payload
+        setLocation: (state, action) => {
+            state.location = action.payload
+            console.log('location', state.location)
+        },
+        toggleTemp: (state) => {
+            state.isMetric = !state.isMetric
         }
     },
     extraReducers: {
@@ -48,6 +53,7 @@ const forecastSlice = createSlice({
         },
         [fetchCurrentWeather.fulfilled]: (state, action) => {
             state.status = 'success'
+            
             state.currentWeather = action.payload
         },
         [fetchCurrentWeather.rejected]: (state) => {
@@ -59,13 +65,15 @@ const forecastSlice = createSlice({
         [fetchDailyForecast.fulfilled]: (state, action) => {
             state.status = 'success'
             state.dailyForecast = action.payload
-        }
-
-
+            
+        },
+        [fetchDailyForecast.rejected]: (state) => {
+            state.status = 'failed'
+        },
     },
     }
 )
 
 export default forecastSlice.reducer
-export const { setCity } = forecastSlice.actions
+export const { setCity, setLocation, toggleTemp } = forecastSlice.actions
 
