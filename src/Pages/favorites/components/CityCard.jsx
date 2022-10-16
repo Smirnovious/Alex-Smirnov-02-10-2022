@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector, useDispatch} from 'react-redux'
+import { useSelector} from 'react-redux'
 
 const CityCard = () => {
     const {favoriteCities} = useSelector(state => state.favorites)
