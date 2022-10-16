@@ -24,7 +24,7 @@ const WeatherPanel = () => {
     return <Loading />
   } else {
   return (
-  <div className="flex flex-col w-1/2 mx-auto rounded-2xl mt-2">
+  <div className="flex flex-col w-full lg:w-1/2 mx-auto rounded-2xl mt-2">
     <div className="flex flex-row">
     {favoriteCities.some(favorite => favorite.id === location.id) ?
     <BsHeartFill className="text-amber-500 text-2xl m-2" onClick={() => dispatch(removeFavorite(location))} /> :

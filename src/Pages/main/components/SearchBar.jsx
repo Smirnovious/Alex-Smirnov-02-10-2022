@@ -43,7 +43,7 @@ const SearchBar = () => {
                 )
         }
         return (
-         <ul className='absolute top-12 rounded-xl bg-white z-10 w-1/2 overflow-y-auto'>
+         <ul className='absolute top-20 lg:top-12 rounded-xl bg-white z-10 w-1/2 overflow-y-auto'>
                 {citiesArray.map((suggestion, index) => (
                     <li key={index} className="hover:bg-amber-500 hover:cursor-pointer flex p-2 justify-between 
                     items-center border-b-2 dark:bg-gray-600 dark:border-b-amber-100 dark:hover:bg-white"
