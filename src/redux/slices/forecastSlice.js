@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-
+const API = 'xj9aLa2hN5AeujVcNIpcmEtsZ7b7GbyQ'
 
     export const fetchCurrentWeather = createAsyncThunk(
         'forecast/fetchCurrentWeather',
         async (cityKey) => {
             try {
-                const response = await fetch(`https://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=${process.env.REACT_APP_WEATHER_API_KEY}`)
+                const response = await fetch(`https://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=${API}`)
                 const currentWeather = await response.json()
                 return currentWeather[0]
             } catch (error) {
@@ -17,7 +17,7 @@ import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
         'forecast/fetchDailyForecast',
         async (cityKey) => {
             try {
-                const response = await fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${process.env.REACT_APP_WEATHER_API_KEY}&metric=true`)
+                const response = await fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${API}&metric=true`)
                 const dailyForecast = await response.json()
                 return dailyForecast.DailyForecasts
             } catch (error) {

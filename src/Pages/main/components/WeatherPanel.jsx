@@ -3,7 +3,7 @@ import Loading from './Loading'
 import { useSelector, useDispatch } from 'react-redux'
 import {BsHeart} from 'react-icons/bs'
 import { BsHeartFill } from 'react-icons/bs'
-import { fetchCurrentWeather } from '../../../redux/slices/forecastSlice'
+import { fetchCurrentWeather, setCity } from '../../../redux/slices/forecastSlice'
 import { addFavorite, removeFavorite } from '../../../redux/slices/favoritesSlice'
 import { iconPicker } from '../../../utils/iconPicker'
 
@@ -17,6 +17,7 @@ const WeatherPanel = () => {
 
     useEffect(() => {
       dispatch(fetchCurrentWeather('215854'))
+      dispatch(setCity('Tel Aviv'))
     }, [dispatch])
       
   if (!currentWeather) {
@@ -29,8 +30,6 @@ const WeatherPanel = () => {
     <BsHeartFill className="text-amber-500 text-2xl m-2" onClick={() => dispatch(removeFavorite(location))} /> :
     <BsHeart className="text-amber-500 text-2xl m-2" onClick={() => dispatch(addFavorite(location))} />
     }
-
-   
       </div>
       <p className='mx-auto text-5xl mt-4 font-bold dark:text-amber-200'>{city}</p>
         <div className="flex flex-row justify-between">

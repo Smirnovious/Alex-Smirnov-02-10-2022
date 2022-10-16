@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {  getSuggestionReq, getSuggestionRes, resetSuggestions, setText } from '../../../redux/slices/autoCompleteSlice'
 import { setCity, fetchDailyForecast, fetchCurrentWeather, setLocation } from '../../../redux/slices/forecastSlice'
-
+const API = 'xj9aLa2hN5AeujVcNIpcmEtsZ7b7GbyQ'
 
 const SearchBar = () => {
     const dispatch = useDispatch()
@@ -15,7 +15,7 @@ const SearchBar = () => {
         dispatch(setText(value))
         if (value.length > 2) {
             dispatch(getSuggestionReq())
-            const data = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${process.env.REACT_APP_WEATHER_API_KEY}&q=${value}`)
+            const data = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API}&q=${value}`)
             const suggestedCities = await data.json()
             dispatch(getSuggestionRes(suggestedCities))
         } else {
@@ -61,7 +61,7 @@ const SearchBar = () => {
     return (
         <div className="w-full relative flex flex-row justify-center">
             <input
-                className="border-none leading-10 rounded-xl mx-auto w-1/2 capitalize transition-all dark:placeholder-amber-200
+                className="border-none leading-10 p-2 lg:p-0 mt-4 lg:mt-0 rounded-xl mx-auto w-1/2 capitalize transition-all dark:placeholder-amber-200
                 duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-500"
                 type="text"
                 placeholder="Type a city name"
