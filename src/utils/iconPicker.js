@@ -5,7 +5,6 @@ import {
     WiDayCloudy,
     WiCloudy,
     WiFog,
-    WiShowers,
     WiCloud,
     WiDayShowers,
     WiThunderstorm,

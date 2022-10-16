@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector, useDispatch} from 'react-redux'
-import { fetchCurrentWeather } from '../../../redux/slices/forecastSlice'
 
 const CityCard = () => {
     const {favoriteCities} = useSelector(state => state.favorites)
-    const dispatch = useDispatch()
-    const currentWeather = useSelector(state => state.currentWeather)
+  
 
   return (
     <div className='flex flex-row items-center justify-center'>

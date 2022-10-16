@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {Routes, Route} from 'react-router-dom'
 import FavoritesPage from './Pages/favorites/FavoritesPage'
 import MainPage from './Pages/main/MainPage'

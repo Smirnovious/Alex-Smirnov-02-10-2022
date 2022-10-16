@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {  getSuggestionReq, getSuggestionRes, resetSuggestions, setText } from '../../../redux/slices/autoCompleteSlice'
-import {ImCross} from 'react-icons/im'
 import { setCity, fetchDailyForecast, fetchCurrentWeather, setLocation } from '../../../redux/slices/forecastSlice'
 
 
