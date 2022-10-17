@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {  getSuggestionRes, resetSuggestions, setText } from '../../../redux/slices/autoCompleteSlice'
-import { setCity, fetchDailyForecast, fetchCurrentWeather, setLocation } from '../../../redux/slices/forecastSlice'
+import { fetchDailyForecast, fetchCurrentWeather, setLocation, fetchDefaultLocation } from '../../../redux/slices/forecastSlice'
 
-const API = 'xj9aLa2hN5AeujVcNIpcmEtsZ7b7GbyQ'
+const API = 'rA7CalKP31ZmrZRyiKiSq2QMbAGtjfHS'
 
 
 const SearchBar = () => {
@@ -25,7 +25,7 @@ const SearchBar = () => {
     }
 
     const handleCityClick = async (city) => {
-        dispatch(setCity(city.LocalizedName))
+        dispatch(fetchDefaultLocation(city.LocalizedName))
         dispatch(resetSuggestions(''))
         dispatch(fetchCurrentWeather(city.Key))
         dispatch(fetchDailyForecast(city.Key))

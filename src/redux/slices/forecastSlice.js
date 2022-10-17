@@ -1,6 +1,21 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-const API = 'xj9aLa2hN5AeujVcNIpcmEtsZ7b7GbyQ'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+const API = 'rA7CalKP31ZmrZRyiKiSq2QMbAGtjfHS'
+
+    export const fetchDefaultLocation = createAsyncThunk(
+        'forecast/fetchLocation',
+        async (city) => {
+            try {
+                const response = await fetch(`https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API}&q=${city}`)
+                const location = await response.json()
+                return {id: location[0].Key, name: location[0].LocalizedName}
+            } catch (error) {
+                <ToastContainer/>
+            }
+        }
+    )
     export const fetchCurrentWeather = createAsyncThunk(
         'forecast/fetchCurrentWeather',
         async (cityKey) => {
@@ -9,7 +24,7 @@ const API = 'xj9aLa2hN5AeujVcNIpcmEtsZ7b7GbyQ'
                 const currentWeather = await response.json()
                 return currentWeather[0]
             } catch (error) {
-                console.log(error)
+                <ToastContainer/>
             }
         }
     )
@@ -21,41 +36,28 @@ const API = 'xj9aLa2hN5AeujVcNIpcmEtsZ7b7GbyQ'
                 const dailyForecast = await response.json()
                 return dailyForecast.DailyForecasts
             } catch (error) {
-                console.log('error', error)
+                <ToastContainer/>
             }
         }
     )
-    export const fetchWeatherByGeoLocation = createAsyncThunk(
-        'forecast/fetchWeatherByGeoLocation',
-        async (latitude, longitude) => {
-            try {
-                const response = await fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${API}&q=${latitude},${longitude}`)
-                const location = await response.json()
-                return location
-            } catch (error) {
-                console.log('error', error)
-            }
-        }
-    )
+ 
 
+      
 const forecastSlice = createSlice({
     name: 'forecast',
     initialState: {
-        city:'Tel Aviv',
         currentWeather: null,
         dailyForecast: [],
         isMetric: true,
-        location: {}
+        location: {},
+        PageLoading: false,
     },
     reducers: {
-        setCity: (state, action) => {
-            state.city = action.payload
-        },
-        setLocation: (state, action) => {
-            state.location = action.payload
-        },
         toggleTemp: (state) => {
             state.isMetric = !state.isMetric
+        },
+        setPageLoading: (state) => {
+            state.PageLoading = !state.PageLoading
         }
     },
     extraReducers: {
@@ -64,7 +66,6 @@ const forecastSlice = createSlice({
         },
         [fetchCurrentWeather.fulfilled]: (state, action) => {
             state.status = 'success'
-            
             state.currentWeather = action.payload
         },
         [fetchCurrentWeather.rejected]: (state) => {
@@ -81,20 +82,20 @@ const forecastSlice = createSlice({
         [fetchDailyForecast.rejected]: (state) => {
             state.status = 'failed'
         },
-        [fetchWeatherByGeoLocation.pending]: (state) => {
+        [fetchDefaultLocation.pending]: (state) => {
             state.status = 'loading'
         },
-        [fetchWeatherByGeoLocation.fulfilled]: (state, action) => {
+        [fetchDefaultLocation.fulfilled]: (state, action) => {
             state.status = 'success'
             state.location = action.payload
-        },
-        [fetchWeatherByGeoLocation.rejected]: (state) => {
+        },  
+        [fetchDefaultLocation.rejected]: (state) => {
             state.status = 'failed'
-        },
+        }
     },
     }
 )
 
 export default forecastSlice.reducer
-export const { setCity, setLocation, toggleTemp } = forecastSlice.actions
+export const { setCity, setLocation, toggleTemp, setPageLoading } = forecastSlice.actions
 

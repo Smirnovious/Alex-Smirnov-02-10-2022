@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React  from 'react'
 import moment from 'moment';
-import { fetchDailyForecast } from '../../../redux/slices/forecastSlice';
+
 import { useSelector, useDispatch } from 'react-redux'
 import { degreeConverter } from '../../../utils/degreeConverter';
 import { iconPicker } from '../../../assets/iconPicker'
@@ -10,10 +10,6 @@ const Weather5DayForecast = () => {
   const dailyForecast = useSelector(state => state.forecast.dailyForecast)
   const dispatch = useDispatch()
   const {isMetric} = useSelector(state => state.forecast)
-  useEffect(() => {
-    dispatch(fetchDailyForecast('215854'))
-  }, [dispatch])
-
 
     return (
     <div className="flex flex-col lg:flex-row w-full mx-auto">
