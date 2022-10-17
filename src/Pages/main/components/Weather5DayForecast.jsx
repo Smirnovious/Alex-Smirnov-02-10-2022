@@ -8,7 +8,6 @@ import { iconPicker } from '../../../assets/iconPicker'
 
 const Weather5DayForecast = () => {
   const dailyForecast = useSelector(state => state.forecast.dailyForecast)
-  const dispatch = useDispatch()
   const {isMetric} = useSelector(state => state.forecast)
 
     return (

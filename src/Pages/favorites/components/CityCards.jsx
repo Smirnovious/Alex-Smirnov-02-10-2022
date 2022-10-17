@@ -19,7 +19,8 @@ const CityCards = () => {
 
     useEffect(() => {
       fetchFavCitiesWeather()
-    }, [favoriteCities])
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const fetchFavCitiesWeather = async () => {
       dispatch(isLoadingFavorites(true))
