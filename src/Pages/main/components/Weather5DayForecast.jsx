@@ -1,7 +1,7 @@
 import React  from 'react'
 import moment from 'moment';
 
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { degreeConverter } from '../../../utils/degreeConverter';
 import { iconPicker } from '../../../assets/iconPicker'
 
