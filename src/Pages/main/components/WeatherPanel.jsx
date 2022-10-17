@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react'
-import Loading from './Loading'
+import Loading from '../../Loading'
 import { useSelector, useDispatch } from 'react-redux'
 import {BsHeart} from 'react-icons/bs'
 import { BsHeartFill } from 'react-icons/bs'
 import { fetchCurrentWeather, setCity } from '../../../redux/slices/forecastSlice'
 import { addFavorite, removeFavorite } from '../../../redux/slices/favoritesSlice'
-import { iconPicker } from '../../../utils/iconPicker'
+import { iconPicker } from '../../../assets/iconPicker'
 
 const WeatherPanel = () => {  
     const dispatch = useDispatch()
@@ -27,8 +27,8 @@ const WeatherPanel = () => {
   <div className="flex flex-col w-full lg:w-1/2 mx-auto rounded-2xl mt-2">
     <div className="flex flex-row">
     {favoriteCities.some(favorite => favorite.id === location.id) ?
-    <BsHeartFill className="text-amber-500 text-2xl m-2" onClick={() => dispatch(removeFavorite(location))} /> :
-    <BsHeart className="text-amber-500 text-2xl m-2" onClick={() => dispatch(addFavorite(location))} />
+    <BsHeartFill className="text-red-500 text-2xl m-2 hover:cursor-pointer" onClick={() => dispatch(removeFavorite(location))} /> :
+    <BsHeart className="text-red-500 text-2xl m-2 hover:cursor-pointer" onClick={() => dispatch(addFavorite(location))} />
     }
       </div>
       <p className='mx-auto text-5xl mt-4 font-bold dark:text-amber-200'>{city}</p>

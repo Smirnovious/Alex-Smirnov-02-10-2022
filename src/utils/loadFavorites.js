@@ -1,3 +1,5 @@
+// Helper Function to Load Favorites from Local Storage
+
 export const loadState = () => {
     try {
         const serializedState = localStorage.getItem('favorites')

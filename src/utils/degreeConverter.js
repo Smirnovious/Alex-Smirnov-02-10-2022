@@ -1,3 +1,4 @@
+// Celsius to Fahrenheit Converter Helper Function
 
 export const degreeConverter = (min, max) => {
     if (max === undefined) {

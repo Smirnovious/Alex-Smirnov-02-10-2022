@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-const API = 'c9rVIftS9XbPR97VQQMcnsFERzwt8eD3'
+const API = 'xj9aLa2hN5AeujVcNIpcmEtsZ7b7GbyQ'
 
     export const fetchCurrentWeather = createAsyncThunk(
         'forecast/fetchCurrentWeather',
@@ -25,6 +25,18 @@ const API = 'c9rVIftS9XbPR97VQQMcnsFERzwt8eD3'
             }
         }
     )
+    export const fetchWeatherByGeoLocation = createAsyncThunk(
+        'forecast/fetchWeatherByGeoLocation',
+        async (latitude, longitude) => {
+            try {
+                const response = await fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${API}&q=${latitude},${longitude}`)
+                const location = await response.json()
+                return location
+            } catch (error) {
+                console.log('error', error)
+            }
+        }
+    )
 
 const forecastSlice = createSlice({
     name: 'forecast',
@@ -41,7 +53,6 @@ const forecastSlice = createSlice({
         },
         setLocation: (state, action) => {
             state.location = action.payload
-            console.log('location', state.location)
         },
         toggleTemp: (state) => {
             state.isMetric = !state.isMetric
@@ -68,6 +79,16 @@ const forecastSlice = createSlice({
             
         },
         [fetchDailyForecast.rejected]: (state) => {
+            state.status = 'failed'
+        },
+        [fetchWeatherByGeoLocation.pending]: (state) => {
+            state.status = 'loading'
+        },
+        [fetchWeatherByGeoLocation.fulfilled]: (state, action) => {
+            state.status = 'success'
+            state.location = action.payload
+        },
+        [fetchWeatherByGeoLocation.rejected]: (state) => {
             state.status = 'failed'
         },
     },

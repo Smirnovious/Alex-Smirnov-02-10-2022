@@ -1,28 +1,28 @@
 import {
     WiDaySunny,
     WiDaySunnyOvercast,
-    WiDayHaze,
-    WiDayCloudy,
     WiCloudy,
     WiFog,
+    WiNightRain,
+    WiRaindrop,
+    WiNightSprinkle,
+    WiSandstorm,
     WiCloud,
-    WiDayShowers,
-    WiThunderstorm,
-    WiDayThunderstorm,
     WiSnowflakeCold,
     WiRain,
-    WiSnow,
-    WiDaySnow,
+    WiDayRain,
+    WiNightSnowWind,
+    WiDaySleetStorm,
     WiWindy,
-    WiSleet,
-    WiRainMix,
+    WiNightSnowThunderstorm,
     WiMoonNew,
+    WiNightAltCloudy,
     WiHot,
+    WiNightCloudyWindy,
     WiStrongWind,
     WiNightClear,
     WiNightPartlyCloudy,
     WiNightCloudy,
-    WiNightFog,
     WiNightShowers,
     WiNightThunderstorm,
     WiNightSnow,
@@ -37,45 +37,45 @@ export const iconPicker = (icon) => {
         case 2:
             return <WiDaySunnyOvercast />;
         case 3:
-            return <WiDayHaze />;
+            return <WiDaySunnyOvercast />;
         case 4:
-            return <WiDayCloudy />;
-        case 5:
             return <WiCloudy />;
-        case 6:
+        case 5:
             return <WiFog />;
+        case 6:
+            return <WiCloudy />;
         case 7:
             return <WiCloud />;
         case 8:
-            return <WiDayShowers />;
+            return <WiDaySunnyOvercast />;
         case 11:
-            return <WiThunderstorm />;
+            return <WiFog />;
         case 12:
-            return <WiDayThunderstorm />;
+            return <WiNightRain />;
         case 13:
             return <WiRain />;
         case 14:
-            return <WiSnow />;
+            return <WiDayRain />;
         case 15:
-            return <WiDaySnow />;
+            return <WiDaySleetStorm />;
         case 16:
-            return <WiSnowflakeCold />;
+            return <WiDaySleetStorm />;
         case 17:
-            return <WiSleet />;
+            return <WiDaySleetStorm />;
         case 18:
-            return <WiRainMix />;
+            return <WiRain />;
         case 19:
-            return <WiHot />;
+            return <WiSandstorm />;
         case 20:
             return <WiStrongWind />;
         case 21:
-            return <WiNightClear />;
+            return <WiNightCloudyWindy />;
         case 22:
             return <WiNightPartlyCloudy />;
         case 23:
             return <WiNightCloudy />;
         case 24:
-            return <WiNightFog />;
+            return <WiRaindrop />;
         case 25:
             return <WiNightShowers />;
         case 26:
@@ -98,6 +98,20 @@ export const iconPicker = (icon) => {
             return <WiNightCloudyHigh/>
         case 37:
             return <WiMoonNew/>
+        case 38:
+            return <WiNightAltCloudy/>
+        case 39:
+            return <WiNightShowers/>
+        case 40:
+            return <WiNightSprinkle/>
+        case 41:
+            return <WiNightSnowThunderstorm/>
+        case 42:
+            return <WiNightSnowThunderstorm />;
+        case 43:
+            return <WiNightSnowWind />;
+        case 44:
+            return <WiNightSnowWind />;
         default:
             return 'No icon found';
     }

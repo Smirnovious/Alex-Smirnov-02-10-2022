@@ -5,6 +5,7 @@ const favoritesSlice = createSlice({
   name: 'favorites',
   initialState: {
     favoriteCities: loadState(),
+    isLoading: false
   },
   reducers: {
     addFavorite: (state, action) => {
@@ -15,8 +16,11 @@ const favoritesSlice = createSlice({
       state.favoriteCities = state.favoriteCities.filter(city => city.id !== action.payload.id)
       localStorage.setItem('favorites', JSON.stringify(state.favoriteCities))
     },
+    isLoadingFavorites: (state) => {
+      state.isLoading = !state.isLoading
+    }
   },
 })
 
 export default favoritesSlice.reducer
-export const { addFavorite, removeFavorite } = favoritesSlice.actions
+export const { addFavorite, removeFavorite, isLoadingFavorites } = favoritesSlice.actions

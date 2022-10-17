@@ -3,16 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 export const autoCompleteSlice = createSlice({
     name: "autoComplete",
     initialState: {
-        isFetching: 0,
         text: "",
         locations: [],
     },
     reducers: {
-        getSuggestionReq: (state, action) => {
-            state.isFetching = state.isFetching + 1;
-        },
         getSuggestionRes: (state, action) => {
-            state.isFetching = state.isFetching - 1;
             state.locations = action.payload;
         },
         resetSuggestions: (state, action) => {
@@ -26,5 +21,5 @@ export const autoCompleteSlice = createSlice({
     }
 });
 
-export const { getSuggestionReq, getSuggestionRes, resetSuggestions, setText  } = autoCompleteSlice.actions;
+export const { getSuggestionRes, resetSuggestions, setText  } = autoCompleteSlice.actions;
 export default autoCompleteSlice.reducer;

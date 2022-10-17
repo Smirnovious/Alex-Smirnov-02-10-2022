@@ -2,21 +2,22 @@ import React, { useEffect, useState } from 'react'
 import {BiSun} from 'react-icons/bi'
 import {FaRegMoon} from 'react-icons/fa'
 
+
 const ToggleDarkMode = () => {
     const [darkMode, setDarkMode] = useState(()=> localStorage.theme === "dark")
-
     const toggleDarkMode = () => {
         setDarkMode(!darkMode)
     }
-        useEffect(() => {
-    const html = window.document.documentElement
-    const prevTheme = darkMode ? "light" : "dark"
-    html.classList.remove(prevTheme);
+    
+    useEffect(() => {
+        const html = window.document.documentElement
+        const prevTheme = darkMode ? "light" : "dark"
+        html.classList.remove(prevTheme);
 
-    const nextTheme = darkMode ? "dark" : "light"
-    html.classList.add(nextTheme);
+        const nextTheme = darkMode ? "dark" : "light"
+        html.classList.add(nextTheme);
 
-    localStorage.setItem("theme", nextTheme);
+        localStorage.setItem("theme", nextTheme);
     }, [darkMode]);
     
     return (
