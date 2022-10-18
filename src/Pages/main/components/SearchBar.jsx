@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import {  getSuggestionRes, resetSuggestions, setText } from '../../../redux/slices/autoCompleteSlice'
 import { fetchDailyForecast, fetchCurrentWeather, setLocation, fetchDefaultLocation } from '../../../redux/slices/forecastSlice'
 
-const API = 'rA7CalKP31ZmrZRyiKiSq2QMbAGtjfHS'
+const API = 'AdGZ6KxmTXBUGsIxRfLV0Oi2LmjRiITG'
 
 
 const SearchBar = () => {
     const dispatch = useDispatch()
     const citiesArray = useSelector(state => state.autoComplete.locations)
     const {text} = useSelector(state => state.autoComplete)
- 
+   
 
     const handleChange = async e => {
         const value = e.target.value

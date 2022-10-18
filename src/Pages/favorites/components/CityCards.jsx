@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import { useSelector, useDispatch} from 'react-redux'
 import { isLoadingFavorites, removeFavorite } from '../../../redux/slices/favoritesSlice'
-import Loading from '../../Loading'
+import Loading from '../../extra/LoadingComponent'
 import { useNavigate } from 'react-router-dom'
 import { fetchCurrentWeather, fetchDefaultLocation } from '../../../redux/slices/forecastSlice'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
-const API = 'rA7CalKP31ZmrZRyiKiSq2QMbAGtjfHS'
-
+const API = 'AdGZ6KxmTXBUGsIxRfLV0Oi2LmjRiITG'
+const MySwal = withReactContent(Swal)
 
 const CityCards = () => {
     const {favoriteCities} = useSelector(state => state.favorites)
@@ -18,21 +20,33 @@ const CityCards = () => {
     
 
     useEffect(() => {
-      fetchFavCitiesWeather()
+          fetchFavCitiesWeather()
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const fetchFavCitiesWeather = async () => {
       dispatch(isLoadingFavorites(true))
       const favTemps = {}
+      try {
       for (let favoriteCity of favoriteCities) {
         const response = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${favoriteCity.id}?apikey=${API}`)
         const weatherObj = await response.json()
         favTemps[favoriteCity.id] = weatherObj[0]
-      }
+        }
+      } catch (error) {
+          MySwal.fire({
+            title: 'Error',
+            text: 'Unable to Show Favorites',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        }).then(() => {
+          navigate('/')
+        })
       setFavCitiesTemps(favTemps)
       dispatch(isLoadingFavorites(false))
     }
+  }
+  
 
     const navigateToForecast = (city) => {
       dispatch(fetchDefaultLocation(city.name))
@@ -60,7 +74,7 @@ const CityCards = () => {
             <p className='text-3xl'>{favorite.name}</p>
             <p className='hover:cursor-pointer' onClick={()=> navigateToForecast(favorite)}>Go To City Page</p>
             <p className='text-4xl'>{isMetric ? Math.floor(FavCitiesTemps[favorite.id]?.Temperature.Metric.Value) :  Math.floor(FavCitiesTemps[favorite.id]?.Temperature.Imperial.Value)}°</p>
-            <button className="font-bold text-red-500 hover:cursor-pointer" onClick={() => dispatch(removeFavorite(favorite))}>Remove</button>
+            <button className="font-bold text-red-500 hover:cursor-pointer self-end mr-2" onClick={() => dispatch(removeFavorite(favorite))}>Remove</button>
           </div>
         
     ))}

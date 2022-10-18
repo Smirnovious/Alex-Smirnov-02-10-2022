@@ -1,5 +1,5 @@
 import React from 'react'
-import Loading from '../../Loading'
+import Loading from '../../extra/LoadingComponent'
 import { useSelector, useDispatch } from 'react-redux'
 import {BsHeart} from 'react-icons/bs'
 import { BsHeartFill } from 'react-icons/bs'

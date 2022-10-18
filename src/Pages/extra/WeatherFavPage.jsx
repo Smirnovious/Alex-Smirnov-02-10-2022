@@ -1,8 +1,9 @@
 import React from 'react'
-import NavBar from './main/components/NavBar'
-import SearchBar from './main/components/SearchBar'
-import Weather5DayForecast from './main/components/Weather5DayForecast'
-import WeatherPanel from './main/components/WeatherPanel'
+import NavBar from '../main/components/NavBar'
+import SearchBar from '../main/components/SearchBar'
+import Weather5DayForecast from '../main/components/Weather5DayForecast'
+import WeatherPanel from '../main/components/WeatherPanel'
+
 
 // This Page is for the Favorite Cities Render Via Params 
 const WeatherFavPage = () => {

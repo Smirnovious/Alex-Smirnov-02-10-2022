@@ -6,6 +6,7 @@ import {AiFillHome} from 'react-icons/ai'
 import {useSelector, useDispatch} from 'react-redux'
 import { toggleTemp } from '../../../redux/slices/forecastSlice'
 
+
 const NavBar = () => {
   const {isMetric} = useSelector(state => state.forecast)
   const {favoriteCities} = useSelector(state => state.favorites)
