@@ -11,7 +11,6 @@ By Alex Smirnov
 ## App Features:
 
  - [x] Responsive Design
- - [x] GeoLocation
  - [x] Celsius/Farenheit Converter
  - [x] Dark/Light Theme Toggle
  - [x] Favorites Page

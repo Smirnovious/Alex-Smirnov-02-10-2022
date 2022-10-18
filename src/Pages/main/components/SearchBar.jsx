@@ -4,7 +4,7 @@ import {  getSuggestionRes, resetSuggestions, setText } from '../../../redux/sli
 import { fetchDailyForecast, fetchCurrentWeather, setLocation, fetchDefaultLocation } 
 from '../../../redux/slices/forecastSlice'
 
-const API = 'xrlLYOoZkeV9knckO4YoNW44AXKv8fFu'
+const API = 'yVPcD6aN2GYcaYXCdxkiMSWP9aMx6DwW'
 
 
 const SearchBar = () => {

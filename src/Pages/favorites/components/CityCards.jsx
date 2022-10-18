@@ -11,7 +11,7 @@ import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal)
 //
 
-const API = 'xrlLYOoZkeV9knckO4YoNW44AXKv8fFu'
+const API = 'yVPcD6aN2GYcaYXCdxkiMSWP9aMx6DwW'
 
 const CityCards = () => {
     const {favoriteCities} = useSelector(state => state.favorites)

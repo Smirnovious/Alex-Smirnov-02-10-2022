@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal)
 //
-const API = 'xrlLYOoZkeV9knckO4YoNW44AXKv8fFu'
+const API = 'yVPcD6aN2GYcaYXCdxkiMSWP9aMx6DwW'
 
     export const fetchDefaultLocation = createAsyncThunk(
         'forecast/fetchLocation',
@@ -107,7 +107,7 @@ const forecastSlice = createSlice({
         [fetchDailyForecast.rejected]: (state) => {
             state.status = 'failed'
         },
-        
+
         [fetchDefaultLocation.pending]: (state) => {
             state.status = 'loading'
         },
