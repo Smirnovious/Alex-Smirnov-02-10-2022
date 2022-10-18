@@ -1,10 +1,8 @@
 import React  from 'react'
-import moment from 'moment';
-
+import moment from 'moment'; 
 import { useSelector } from 'react-redux'
 import { degreeConverter } from '../../../utils/degreeConverter';
 import { iconPicker } from '../../../assets/iconPicker'
-
 
 const Weather5DayForecast = () => {
   const dailyForecast = useSelector(state => state.forecast.dailyForecast)
@@ -24,10 +22,7 @@ const Weather5DayForecast = () => {
         )
       })}
     </div>
-    
-
-  )
-}
+  )}
 
 
 export default Weather5DayForecast

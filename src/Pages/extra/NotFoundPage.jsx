@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+// This Page is for 404 Error Handling
 const NotFoundPage = () => {
   return (
     <div className='bg-gray-50 dark:bg-gray-800 h-screen flex flex-col justify-center items-center'> 

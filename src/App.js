@@ -5,11 +5,12 @@ import MainPage from './Pages/main/MainPage'
 import NotFoundPage from './Pages/extra/NotFoundPage'
 import WeatherFavPage from './Pages/extra/WeatherFavPage'
 
+
 const App = () => {
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />
-      <Route path="/:id" element={<WeatherFavPage />} />
+      <Route path="/forecast/:id" element={<WeatherFavPage />} />
       <Route path="/favorites" element={<FavoritesPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes> 

@@ -10,6 +10,7 @@ import {
     WiCloud,
     WiSnowflakeCold,
     WiRain,
+    WiCloudRefresh,
     WiDayRain,
     WiNightSnowWind,
     WiDaySleetStorm,
@@ -113,6 +114,6 @@ export const iconPicker = (icon) => {
         case 44:
             return <WiNightSnowWind />;
         default:
-            return 'No icon found';
+            return <WiCloudRefresh />;
     }
 }

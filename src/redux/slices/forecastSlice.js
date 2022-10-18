@@ -5,9 +5,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal)
 //
-
-
-const API = 'DAVUFyy77kCRYxy8JEsgSoncnbndDHBd'
+const API = 'xrlLYOoZkeV9knckO4YoNW44AXKv8fFu'
 
     export const fetchDefaultLocation = createAsyncThunk(
         'forecast/fetchLocation',
@@ -68,13 +66,7 @@ const API = 'DAVUFyy77kCRYxy8JEsgSoncnbndDHBd'
             }
         }
     )
-    export const fetchGeoLocation = createAsyncThunk(
-        'forecast/fetchGeoLocation',
-        async (position) => {
-            
-        }
-    )
-      
+
 const forecastSlice = createSlice({
     name: 'forecast',
     initialState: {
@@ -88,8 +80,8 @@ const forecastSlice = createSlice({
         toggleTemp: (state) => {
             state.isMetric = !state.isMetric
         },
-        setPageLoading: (state) => {
-            state.pageLoading = !state.pageLoading
+        setPageLoading: (state,action) => {
+            state.pageLoading = action.payload
         }
     },
     extraReducers: {
@@ -103,17 +95,19 @@ const forecastSlice = createSlice({
         [fetchCurrentWeather.rejected]: (state) => {
             state.status = 'failed'
         },
+
+
         [fetchDailyForecast.pending]: (state) => {
             state.status = 'loading'
         },
         [fetchDailyForecast.fulfilled]: (state, action) => {
             state.status = 'success'
             state.dailyForecast = action.payload
-            
         },
         [fetchDailyForecast.rejected]: (state) => {
             state.status = 'failed'
         },
+        
         [fetchDefaultLocation.pending]: (state) => {
             state.status = 'loading'
         },

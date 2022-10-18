@@ -9,10 +9,10 @@ import WeatherPanel from '../main/components/WeatherPanel'
 const WeatherFavPage = () => {
   return (
     <div className='bg-gray-50 h-full lg:h-screen dark:bg-gray-800'> 
-    <NavBar/>
-    <SearchBar/>
-    <WeatherPanel/>
-    <Weather5DayForecast/>
+      <NavBar/>
+      <SearchBar/>
+      <WeatherPanel/>
+      <Weather5DayForecast/>
     </div>
   )
 }

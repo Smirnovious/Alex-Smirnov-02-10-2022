@@ -3,19 +3,19 @@ import { createSlice } from "@reduxjs/toolkit";
 export const autoCompleteSlice = createSlice({
     name: "autoComplete",
     initialState: {
-        text: "",
-        locations: [],
+        searchText: "",
+        suggestedCities: [],
     },
     reducers: {
         getSuggestionRes: (state, action) => {
-            state.locations = action.payload;
+            state.suggestedCities = action.payload;
         },
         resetSuggestions: (state, action) => {
-            state.text = action.payload;
-            state.locations = [];
+            state.searchText = action.payload;
+            state.suggestedCities = [];
         },
         setText: (state, action) => {
-            state.text = action.payload;
+            state.searchText = action.payload;
 
         },
     }
