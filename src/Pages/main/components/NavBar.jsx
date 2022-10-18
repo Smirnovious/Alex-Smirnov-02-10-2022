@@ -24,7 +24,7 @@ const NavBar = () => {
              border-white">{favoriteCities.length}
             </span>
           <ToggleDarkMode/>
-          <button onClick={()=> dispatch(toggleTemp())} className='w-10 h-10 mr-2 dark:text-amber-200'>
+          <button aria-label='' onClick={()=> dispatch(toggleTemp())} className='w-10 h-10 mr-2 dark:text-amber-200'>
             {isMetric ? '\xB0C' : '\xB0F'}
           </button>
       </div>

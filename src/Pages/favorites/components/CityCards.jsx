@@ -7,9 +7,9 @@ import { fetchCurrentWeather, fetchDefaultLocation } from '../../../redux/slices
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-const API = 'AdGZ6KxmTXBUGsIxRfLV0Oi2LmjRiITG'
-const MySwal = withReactContent(Swal)
 
+const MySwal = withReactContent(Swal)
+const API = 'DAVUFyy77kCRYxy8JEsgSoncnbndDHBd'
 const CityCards = () => {
     const {favoriteCities} = useSelector(state => state.favorites)
     const {isLoading} = useSelector(state => state.favorites)
@@ -46,7 +46,7 @@ const CityCards = () => {
       dispatch(isLoadingFavorites(false))
     }
   }
-  
+
 
     const navigateToForecast = (city) => {
       dispatch(fetchDefaultLocation(city.name))

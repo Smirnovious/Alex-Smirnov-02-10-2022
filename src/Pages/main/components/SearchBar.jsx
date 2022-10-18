@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {  getSuggestionRes, resetSuggestions, setText } from '../../../redux/slices/autoCompleteSlice'
 import { fetchDailyForecast, fetchCurrentWeather, setLocation, fetchDefaultLocation } from '../../../redux/slices/forecastSlice'
 
-const API = 'AdGZ6KxmTXBUGsIxRfLV0Oi2LmjRiITG'
+const API = 'DAVUFyy77kCRYxy8JEsgSoncnbndDHBd'
 
 
 const SearchBar = () => {

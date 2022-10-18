@@ -7,7 +7,7 @@ const MySwal = withReactContent(Swal)
 //
 
 
-const API = 'AdGZ6KxmTXBUGsIxRfLV0Oi2LmjRiITG'
+const API = 'DAVUFyy77kCRYxy8JEsgSoncnbndDHBd'
 
     export const fetchDefaultLocation = createAsyncThunk(
         'forecast/fetchLocation',
@@ -68,18 +68,12 @@ const API = 'AdGZ6KxmTXBUGsIxRfLV0Oi2LmjRiITG'
             }
         }
     )
-    // export const fetchGeoLocation = createAsyncThunk(
-    //     'forecast/fetchGeoLocation',
-    //     async (position) => {
-    //         try {
-    //             const response = await fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${API}&q=${position.coords.latitude},${position.coords.longitude}`)
-    //             const location = await response.json()
-                
-    //         } catch (error) {
-                
-    //         }
-    //     }
-    // )
+    export const fetchGeoLocation = createAsyncThunk(
+        'forecast/fetchGeoLocation',
+        async (position) => {
+            
+        }
+    )
       
 const forecastSlice = createSlice({
     name: 'forecast',
