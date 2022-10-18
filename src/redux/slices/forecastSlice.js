@@ -68,18 +68,18 @@ const API = 'AdGZ6KxmTXBUGsIxRfLV0Oi2LmjRiITG'
             }
         }
     )
-    export const fetchGeoLocation = createAsyncThunk(
-        'forecast/fetchGeoLocation',
-        async (position) => {
-            try {
-                const response = await fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${API}&q=${position.coords.latitude},${position.coords.longitude}`)
-                const location = await response.json()
+    // export const fetchGeoLocation = createAsyncThunk(
+    //     'forecast/fetchGeoLocation',
+    //     async (position) => {
+    //         try {
+    //             const response = await fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${API}&q=${position.coords.latitude},${position.coords.longitude}`)
+    //             const location = await response.json()
                 
-            } catch (error) {
+    //         } catch (error) {
                 
-            }
-        }
-    )
+    //         }
+    //     }
+    // )
       
 const forecastSlice = createSlice({
     name: 'forecast',
