@@ -20,8 +20,11 @@ const API = 'AdGZ6KxmTXBUGsIxRfLV0Oi2LmjRiITG'
                 MySwal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Something went wrong!',
-                  })
+                    text: 'There was an error, come back later!',
+                    footer: 'Contact alex0401@gmail.com if the problem persists'
+                  }).then(() => {
+                    window.history.back()
+                    })
             }
         }
     )
@@ -71,9 +74,9 @@ const API = 'AdGZ6KxmTXBUGsIxRfLV0Oi2LmjRiITG'
             try {
                 const response = await fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${API}&q=${position.coords.latitude},${position.coords.longitude}`)
                 const location = await response.json()
-                console.log(location)
+                
             } catch (error) {
-                console.log('fassfafsa')
+                
             }
         }
     )
