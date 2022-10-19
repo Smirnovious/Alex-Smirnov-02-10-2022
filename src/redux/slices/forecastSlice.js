@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal)
 //
-const API = 'yVPcD6aN2GYcaYXCdxkiMSWP9aMx6DwW'
+const API = 'QAZdXOfPA18ckNtxJZrdEF5SHrSxDboJ'
 
     export const fetchDefaultLocation = createAsyncThunk(
         'forecast/fetchLocation',

@@ -11,7 +11,7 @@ import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal)
 //
 
-const API = 'yVPcD6aN2GYcaYXCdxkiMSWP9aMx6DwW'
+const API = 'QAZdXOfPA18ckNtxJZrdEF5SHrSxDboJ'
 
 const CityCards = () => {
     const {favoriteCities} = useSelector(state => state.favorites)
@@ -69,8 +69,8 @@ const CityCards = () => {
           <p className='text-3xl dark:text-amber-200 mx-auto w-fit mt-3'>Favorite Cities</p>
           <div className='grid grid-cols-1  lg:grid-cols-3 items-center justify-center '>
             {favoriteCities.map((favorite, index) => (
-              <div key={index} className='flex flex-col m-2 justify-between items-centerbg-slate-700 
-                  text-white rounded-xl h-32  dark:bg-gray-500 dark:text-amber-200'>
+              <div key={index} className='flex flex-col m-2 justify-between items-center bg-slate-700 
+                  text-white rounded-xl h-32 dark:bg-gray-500 dark:text-amber-200'>
                  <p className='text-3xl'>{favorite.name}</p>
                  <p className='hover:cursor-pointer' onClick={()=> navigateToForecast(favorite)}>Go To City Page</p>
                  <p className='text-4xl'>{isMetric ? Math.floor(FavCitiesTemps[favorite.id]?.Temperature.Metric.Value) :  Math.floor(FavCitiesTemps[favorite.id]?.Temperature.Imperial.Value)}°</p>
