@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {  getSuggestionRes, resetSuggestions, setText } from '../../../redux/slices/autoCompleteSlice'
-import { fetchDailyForecast, fetchCurrentWeather, setLocation, fetchDefaultLocation } 
+import { fetchDailyForecast, fetchCurrentWeather, fetchDefaultLocation } 
 from '../../../redux/slices/forecastSlice'
-import _, {debounce} from 'lodash';
+import { debounce } from 'lodash'
 
-const API = 'AATULv9ID6iy0teYeuQLHt3r1bRBETeR'
+const API = 'aNT79sGxAIi3pUdYQ6LpucKrV9lvAh7A'
 
 
 const SearchBar = () => {
@@ -69,7 +69,7 @@ const SearchBar = () => {
                 focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-500"
                 type="text"
                 placeholder="Type a city name"
-                onChange={_.debounce(handleSearch, 500)}
+                onChange={debounce(handleSearch, 500)}
                  
             />
             {renderSuggestions()}

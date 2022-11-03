@@ -11,7 +11,7 @@ import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal)
 //
 
-const API = 'AATULv9ID6iy0teYeuQLHt3r1bRBETeR'
+const API = 'aNT79sGxAIi3pUdYQ6LpucKrV9lvAh7A'
 
 const CityCards = () => {
     const {favoriteCities} = useSelector(state => state.favorites)
@@ -35,8 +35,7 @@ const CityCards = () => {
         for (let favoriteCity of favoriteCities) {
           const response = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${favoriteCity.id}?apikey=${API}`)
           const weatherObj = await response.json()
-          console.log(weatherObj[0])
-          console.log(`favorite city: ${favoriteCity.id}`)
+          
           favTemps[favoriteCity.id] = weatherObj[0]
           }
         setFavCitiesTemps(favTemps)
