@@ -6,7 +6,6 @@ import { BsHeartFill } from 'react-icons/bs'
 import { addFavorite, removeFavorite } from '../../../redux/slices/favoritesSlice'
 import { iconPicker } from '../../../assets/iconPicker'
 
-
 const WeatherPanel = () => {  
     const dispatch = useDispatch()
     const {favoriteCities} = useSelector(state => state.favorites)

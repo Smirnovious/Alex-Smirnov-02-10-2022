@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import {  getSuggestionRes, resetSuggestions, setText } from '../../../redux/slices/autoCompleteSlice'
 import { fetchDailyForecast, fetchCurrentWeather, setLocation, fetchDefaultLocation } 
 from '../../../redux/slices/forecastSlice'
+import _, {debounce} from 'lodash';
 
-const API = 'QAZdXOfPA18ckNtxJZrdEF5SHrSxDboJ'
+const API = 'AATULv9ID6iy0teYeuQLHt3r1bRBETeR'
 
 
 const SearchBar = () => {
@@ -12,29 +13,29 @@ const SearchBar = () => {
     const {suggestedCities} = useSelector(state => state.autoComplete) 
     const {searchText} = useSelector(state => state.autoComplete)
 
-    const handleChange = async (e) => {
-        const value = e.target.value
-        dispatch(setText(value))
-        if (value.length > 2) {
-            const data = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API}&q=${searchText}`)
-            const citiesArray = await data.json()
-            dispatch(getSuggestionRes(citiesArray))
-        } else {
+    const handleSearch = async (e) => {
+        dispatch(setText(e.target.value))
+        if(e.target.value === ''){
             dispatch(resetSuggestions())
         }
+        else {
+            const res = await fetch(`https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API}&q=${e.target.value}`)
+            const data = await res.json()
+            dispatch(getSuggestionRes(data))
+        }
     }
+
+
 
     const handleCityClick = async (city) => {
         dispatch(resetSuggestions(''))
         dispatch(fetchDefaultLocation(city.LocalizedName))
         dispatch(fetchCurrentWeather(city.Key))
         dispatch(fetchDailyForecast(city.Key))
-        dispatch(setLocation({id: city.Key, name: city.LocalizedName}))
+        
         }
-
-
     const renderSuggestions = () => {
-        if (searchText?.length > 3 && suggestedCities.length === 0) {
+        if (searchText?.length > 2 && suggestedCities.length === 0) {
             return (
               <ul className='absolute top-12 rounded-xl bg-white z-10 w-1/2 overflow-y-auto dark:bg-gray-400'>
                 <li className='p-2'>No Cities Found</li>
@@ -56,8 +57,7 @@ const SearchBar = () => {
                 </ul>
                 )}
             }
-
-        
+  
     return (    
         <>
         <div className="w-full relative flex flex-row justify-center">
@@ -69,8 +69,8 @@ const SearchBar = () => {
                 focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-500"
                 type="text"
                 placeholder="Type a city name"
-                onChange={handleChange}
-                value={searchText}    
+                onChange={_.debounce(handleSearch, 500)}
+                 
             />
             {renderSuggestions()}
             

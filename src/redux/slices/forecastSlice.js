@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal)
 //
-const API = 'QAZdXOfPA18ckNtxJZrdEF5SHrSxDboJ'
+const API = 'AATULv9ID6iy0teYeuQLHt3r1bRBETeR'
 
     export const fetchDefaultLocation = createAsyncThunk(
         'forecast/fetchLocation',
@@ -80,7 +80,7 @@ const forecastSlice = createSlice({
         toggleTemp: (state) => {
             state.isMetric = !state.isMetric
         },
-        setPageLoading: (state,action) => {
+        setPageLoading: (state, action) => {
             state.pageLoading = action.payload
         }
     },

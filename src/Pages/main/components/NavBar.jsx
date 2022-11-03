@@ -22,9 +22,10 @@ const NavBar = () => {
           <Link to={'/favorites'}>
             <button className='w-10 h-10 mr-2 text-red-500'><ImHeart/></button>
           </Link>  
-            <span className="absolute right-28 top-5 flex justify-center 
-              items-center w-4 h-4 text-xs font-bold text-white 
-             dark:text-black bg-black  dark:bg-amber-200 rounded-full border- 
+            <span 
+            className="absolute right-28 top-5 flex justify-center 
+              items-center w-4 h-4 text-xs font-bold text-white bg-black
+             dark:text-blackdark:bg-amber-200 rounded-full border- 
              border-white">{favoriteCities.length}
             </span>
           <ToggleDarkMode/>

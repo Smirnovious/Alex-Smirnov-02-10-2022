@@ -5,39 +5,43 @@ import Loading from '../../extra/LoadingComponent'
 import { useNavigate } from 'react-router-dom'
 import { fetchCurrentWeather, fetchDefaultLocation } from '../../../redux/slices/forecastSlice'
 
-//SweetAlert2 for error handling
+// SweetAlert2 for error handling
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal)
 //
 
-const API = 'QAZdXOfPA18ckNtxJZrdEF5SHrSxDboJ'
+const API = 'AATULv9ID6iy0teYeuQLHt3r1bRBETeR'
 
 const CityCards = () => {
     const {favoriteCities} = useSelector(state => state.favorites)
     const {isLoading} = useSelector(state => state.favorites)
-    const dispatch = useDispatch()
-    const [FavCitiesTemps, setFavCitiesTemps] = useState([]) 
-    const isMetric = useSelector(state => state.forecast.isMetric)
+    const {isMetric} = useSelector(state => state.forecast)
     const navigate = useNavigate()
-    
+    const dispatch = useDispatch()
+
+    const [FavCitiesTemps, setFavCitiesTemps] = useState([]) 
 
     useEffect(() => {
+          dispatch(isLoadingFavorites(true))
           fetchFavCitiesWeather()
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+
     const fetchFavCitiesWeather = async () => {
-      dispatch(isLoadingFavorites(true))
       const favTemps = {}
       try {
         for (let favoriteCity of favoriteCities) {
           const response = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${favoriteCity.id}?apikey=${API}`)
           const weatherObj = await response.json()
+          console.log(weatherObj[0])
+          console.log(`favorite city: ${favoriteCity.id}`)
           favTemps[favoriteCity.id] = weatherObj[0]
           }
         setFavCitiesTemps(favTemps)
         dispatch(isLoadingFavorites(false))
+
       } catch (error) {
           MySwal.fire({
             icon: 'error',

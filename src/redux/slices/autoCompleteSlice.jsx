@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const autoCompleteSlice = createSlice({
     name: "autoComplete",
     initialState: {
-        searchText: "",
+        searchText: '',
         suggestedCities: [],
     },
     reducers: {

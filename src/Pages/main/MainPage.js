@@ -12,10 +12,12 @@ const MainPage = () => {
   const dispatch = useDispatch()
 
     useEffect(() => {
-      dispatch(fetchDefaultLocation('Tel Aviv')).unwrap().then((result) => {
+      dispatch(fetchDefaultLocation('Tel Aviv')).unwrap()
+      .then((result) => {
       dispatch(fetchCurrentWeather(result.id))
       dispatch(fetchDailyForecast(result.id))
-        }).then(() => {
+     })
+      .then(() => {
           dispatch(setPageLoading(false))
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps

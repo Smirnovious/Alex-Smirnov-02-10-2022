@@ -13,7 +13,6 @@ const ToggleDarkMode = () => {
         const html = window.document.documentElement
         const prevTheme = darkMode ? "light" : "dark"
         html.classList.remove(prevTheme);
-
         const nextTheme = darkMode ? "dark" : "light"
         html.classList.add(nextTheme);
 
@@ -22,7 +21,7 @@ const ToggleDarkMode = () => {
     
     return (
         <button onClick={toggleDarkMode} className="flex items-center justify-center w-8 h-8 mr-2 ">
-        {darkMode ? <BiSun className="text-amber-200"/> : <FaRegMoon className="text-black"/>}
+            {darkMode ? <BiSun className="text-amber-200"/> : <FaRegMoon className="text-black"/>}
         </button>
                       
         
