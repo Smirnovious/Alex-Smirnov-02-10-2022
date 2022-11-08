@@ -1,4 +1,4 @@
-## **Abra Weather Task**
+## **Weatherflix**
 By Alex Smirnov
 
 ## Stack:
