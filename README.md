@@ -15,5 +15,5 @@ By Alex Smirnov
  - [x] Dark/Light Theme Toggle
  - [x] Favorites Page
  - [x] 5 Day Forecast
- - [x] Autocomplete + Mock Debounce (Minimum Two Letters before API Req)
+ - [x] Autocomplete + Debounce
  - [x] Use of LocalStorage
